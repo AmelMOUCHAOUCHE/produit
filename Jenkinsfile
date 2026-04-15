@@ -1,17 +1,14 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven'
-    }
     stages {
         stage('Build') {
             steps {
-                bat 'mvn clean package -DskipTests'
+                bat 'sf --version'
             }
         }
         stage('Test') {
             steps {
-                bat 'mvn test'
+                bat 'sf apex run test --test-level RunLocalTests --output-dir ./tests/apex --result-format tap'
             }
         }
     }
